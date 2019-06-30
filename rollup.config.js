@@ -12,7 +12,7 @@ const firstPlugins = [
 const plugins = [
   typescript({
     module: 'ESNext',
-    // useTsconfigDeclarationDir: true
+    tsconfigOverride: { compilerOptions: { declaration: true } }
   }),
 ]
 
@@ -24,7 +24,6 @@ const external = [
 export default {
 	input: `src/index.ts`,
   output: [
-  	{ file: pkg.main, format: 'cjs' },
   	{ file: pkg.module, format: 'esm' },
   ],
 	plugins: [...firstPlugins, ...plugins],

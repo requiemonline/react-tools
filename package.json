@@ -1,31 +1,36 @@
 {
-  "name": "@rqm/<package-name>",
-  "description": "",
+  "name": "@rqm/react-tools",
+  "description": "Useful stuff for React: HOCs, hooks, etc.",
   "version": "1.0.0",
-  "main": "dist/index.cjs.js",
+  "main": "dist/index.js",
   "module": "dist/index.js",
-  "homepage": "https://github.com/requiemonline/<package-name>",
+  "homepage": "https://github.com/requiemonline/react-tools",
   "bugs": {
-    "url": "https://github.com/requiemonline/<package-name>/issues"
+    "url": "https://github.com/requiemonline/react-tools/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/requiemonline/<package-name>"
+    "url": "https://github.com/requiemonline/react-tools"
   },
   "types": "dist/index.d.ts",
-  "keywords": [
-  ],
+  "keywords": [],
   "author": "requiemonline",
   "license": "MIT",
   "scripts": {
     "build": "rollup -c",
-    "watch": "rollup -cw"
+    "watch": "rollup -cw",
+    "ts": "tsc -w"
   },
   "devDependencies": {
+    "@types/react": "^16.8.22",
     "rollup": "^1.16.2",
     "rollup-plugin-clear": "^2.0.7",
+    "rollup-plugin-dts": "^1.1.4",
     "rollup-plugin-typescript2": "^0.21.2",
     "typescript": "^3.5.2"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "peerDependencies": {
+    "react": "^16.8.6"
+  }
 }
