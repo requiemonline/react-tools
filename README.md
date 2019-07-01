@@ -1,16 +1,17 @@
 # react-tools
 1. Hooks
-   * [usePrevious](#usePrevious)
+   * [usePrevious](#useprevious)
 2. HOCs
    * [withContext](#withcontext)
 
-## UsePrevious
+## usePrevious
 Returns value given on previous render or `undefined` if it's first render.
 
-```import { usePrevious } from '@rqm/react-tools'
+```
+import { usePrevious } from '@rqm/react-tools'
 
 const Component = ({ count }) => {
-	const prevProp = usePrevious(count) || 0
+	const prevCount = usePrevious(count) || 0 // on first render will be 0
 	return <>
 		<p>{`previous count: ${prevCount}`}</p>
 		<p>{`current count: ${count}`}</p>
@@ -19,9 +20,10 @@ const Component = ({ count }) => {
 ```
 
 ## withContext
-Similar to [connect](https://react-redux.js.org/using-react-redux/connect-mapstate) with `mapStateToProps` and `mapDispatchToProps` from *Redux* **`withContext`** used  for performant state management but in combination with [React Hooks](https://reactjs.org/docs/hooks-intro.html) `useReducer`/`useState` and [React Context](https://reactjs.org/docs/context.html)
+Similar to [connect](https://react-redux.js.org/using-react-redux/connect-mapstate) from *Redux*, **`withContext`** used  for performant global state management but in combination with [React Hooks](https://reactjs.org/docs/hooks-intro.html) (`useReducer`/`useState`) and [React Context](https://reactjs.org/docs/context.html):
 
-```import { withContext } from @rqm/react-tools
+```
+import { withContext } from '@rqm/react-tools'
 
 const WrappedComponent = withContext(
 	Context,
@@ -30,11 +32,11 @@ const WrappedComponent = withContext(
 )
 ```
 * `Context`: React context.
-* `getPropsFromContextValue`: Function that accepts context value as first argument and props passed to `WrappedComponent` as second. Should return object with props that goes to `Component`: `(contextValue, externalProps) => innerProps`. Cannot use React Hooks but everything else is allowed, for example [memoization](#usage-with-memoization).
+* `getPropsFromContextValue`: Function that accepts context value as first argument and props passed to `WrappedComponent` as second. Should return object with props that goes to `Component`: `(contextValue, externalProps) => innerProps`. You cannot use React Hooks inside of it but everything else is allowed, for example [memoization](#usage-with-memoization) if you're calculating something expensive.
 * `Component`: React Function Component, Class Component or something that returns JSX.
 
 ### Motivation
-The role of this HOC is to **prevent unneccesery renders** when due to `dispatch` from `useReducer` object in Context value changed but not a key of that object which `Component` needs.
+The role of this HOC is to **prevent unneccesery renders** when object in Context value changes, but not a property of that object which `Component` needs.
 
 ### Usage example
 
@@ -65,7 +67,7 @@ const UserDataProvider = ({ children }) => {
 	</UserDataContext.Provider>
 }
 ```
-Wrapped component which accepts `displayAd` boolean prop from parent component and `name` from 	`UserDataContext`:
+Wrapped component which accepts boolean prop `displayAd` from parent component and `name` from 	`UserDataContext`:
 ```
 import React, { memo } from 'react'
 
@@ -83,9 +85,9 @@ const DisplayUserNameAndMaybeAd = withContext(
 		</div>
 )
 ```
-Now some component dispatches action to change user age:
+Now some other component dispatches action to change user age:
 ```
-dispatch({ type: 'setUserAge', payload: 20 })
+dispatch({ type: 'setAge', payload: 20 })
 ```
 And `DisplayUserNameAndMaybeAd` component will not be rerendered, only `withContext` HOC.
 
