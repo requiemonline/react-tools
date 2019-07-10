@@ -1,5 +1,5 @@
-import React, { Component, createContext } from 'react'
-import withContext from '../withContext'
+import { Component, createContext, FC } from 'react'
+import withContext from '../src/withContext'
 
 const TestContext = createContext({ testing: true })
 
@@ -14,25 +14,27 @@ class ClassComponent extends Component<PropsType> {
 const ClassTest: React.FC<{ yo: string }> = withContext(
 	TestContext,
 	({ testing }, props) => ({ ...props, testing }),
-	ClassComponent
+	ClassComponent,
 )
 
-const FuncComponent: React.FC<PropsType> = 
-	({ yo, testing }) => <div>{testing ? yo : 'bye'}</div>
+const FuncComponent: React.FC<PropsType> = ({ yo, testing }) => <div>{testing ? yo : 'bye'}</div>
 
 // You can type external props (that accepts FuncTest) in two ways:
-const FuncTest1 = withContext(TestContext,
+const FuncTest1 = withContext(
+	TestContext,
 	({ testing }, props: { yo: string }) => ({ ...props, testing }),
-	FuncComponent
+	FuncComponent,
 )
 
-const FuncTest2: React.FC<{ yo: string }> = withContext(TestContext,
+const FuncTest2: React.FC<{ yo: string }> = withContext(
+	TestContext,
 	({ testing }, props) => ({ ...props, testing }),
-	FuncComponent
+	FuncComponent,
 )
 
 // case without component declaration
-const FuncTest3: React.FC<{ yo: string }> = withContext(TestContext,
+const FuncTest3: React.FC<{ yo: string }> = withContext(
+	TestContext,
 	({ testing }, props) => ({ ...props, testing }),
-	({ testing, yo }) => <div>{testing ? yo : 'bye'}</div>
+	({ testing, yo }) => <div>{testing ? yo : 'bye'}</div>,
 )
