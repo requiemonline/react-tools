@@ -190,7 +190,7 @@ const FuncTest3: React.FC<{ yo: string }> = withContext(TestContext,
 ```
 
 ## useMergedRefs
-Retruns a function that you can pass to `ref` to assign two refs for one element.
+Returns a function that you can pass to `ref` to assign two refs for one element.
 
 ```
 import { useMergedRefs } from '@rqm/react-tools'
