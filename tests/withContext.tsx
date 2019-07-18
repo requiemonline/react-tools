@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Component, createContext, FC } from 'react'
 import withContext from '../src/withContext'
 

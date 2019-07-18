@@ -1,6 +1,7 @@
 # react-tools
 1. Hooks
    * [usePrevious](#useprevious)
+   * [useMergedRefs](#usemergedrefs)
 2. HOCs
    * [withContext](#withcontext)
 
@@ -186,4 +187,20 @@ const FuncTest3: React.FC<{ yo: string }> = withContext(TestContext,
 	({ testing }, props) => ({ ...props, testing }),
 	({ testing, yo }) => <div>{testing ? yo : 'bye'}</div>
 )
+```
+
+## useMergedRefs
+Retruns a function that you can pass to `ref` to assign two refs for one element.
+
+```
+import { useMergedRefs } from '@rqm/react-tools'
+import React, { forwardRef, useRef } from 'react'
+
+const Example = forwardRef<HTMLDivElement, {}>((props, ref) => {
+	const secondRef = useRef<HTMLDivElement>(null)
+	const mergedRefs = useMergedRefs(ref, secondRef)
+	return <div ref={mergedRefs}>
+		...
+	</div>
+})
 ```

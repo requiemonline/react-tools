@@ -1,7 +1,7 @@
 {
   "name": "@rqm/react-tools",
   "description": "Useful stuff for React: HOCs, hooks, etc.",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
   "homepage": "https://github.com/requiemonline/react-tools",
@@ -25,7 +25,7 @@
     "ts": "tsc -w",
     "lint": "eslint src/** rollup.config.js",
     "fix": "eslint src/** rollup.config.js --fix",
-    "prepublishOnly": "yarn build"
+    "prepublishOnly": "git add . && yarn build"
   },
   "devDependencies": {
     "@types/react": "^16.8.22",
