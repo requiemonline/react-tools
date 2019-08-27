@@ -8,7 +8,7 @@
 ## usePrevious
 Returns value given on previous render or `undefined` if it's first render.
 
-```js
+```jsx
 import { usePrevious } from '@rqm/react-tools'
 
 const Component = ({ count }) => {
@@ -23,7 +23,7 @@ const Component = ({ count }) => {
 ## withContext
 Similar to [connect](https://react-redux.js.org/using-react-redux/connect-mapstate) from *Redux*, **`withContext`** used  for performant global state management but in combination with [React Hooks](https://reactjs.org/docs/hooks-intro.html) (`useReducer`/`useState`) and [React Context](https://reactjs.org/docs/context.html):
 
-```js
+```jsx
 import { withContext } from '@rqm/react-tools'
 
 const WrappedComponent = withContext(
@@ -42,7 +42,7 @@ The role of this HOC is to **prevent unneccesery renders** when object in Contex
 ### Usage example
 
 Somewhere in root of React components tree:
-```js
+```jsx
 import React from 'react'
 
 const UserDataContext = React.createContext({
@@ -69,7 +69,7 @@ const UserDataProvider = ({ children }) => {
 }
 ```
 Wrapped component which accepts boolean prop `displayAd` from parent component and `name` from 	`UserDataContext`:
-```js
+```jsx
 import React, { memo } from 'react'
 
 const DisplayUserNameAndMaybeAd = withContext(
@@ -87,14 +87,14 @@ const DisplayUserNameAndMaybeAd = withContext(
 )
 ```
 Now some other component dispatches action to change user age:
-```js
+```jsx
 dispatch({ type: 'setAge', payload: 20 })
 ```
 And `DisplayUserNameAndMaybeAd` component will not be rerendered, only `withContext` HOC.
 
 ### Nesting
 You can nest `withContext` in another `withContext` as much times as you want, creating sequential logic pieces for data processing:
-```js
+```jsx
 const Diagram = withContext(IdContext,
 	({ id }, props) => ({ ...props, id }),
 	withContext(GetDataContext,
@@ -117,7 +117,7 @@ Example from [Nesting](#nesting) have a few flaws, that leads to unneccesery rer
 Memoization comes to rescue:
 1. Wrapping first `withContext` with `React.memo` will do the trick and nothing will be executed without a reason in case when parent was rerendered.
 2. The goal here is to rerender component (because props it consumes still changed) but not to run `expensiveDataCalculation`. It can be achieved only with external memoization wrapper for expensive computations, but still easy enough:
-```js
+```jsx
 import { memoize } from '@rqm/tools'
 
 const GetDataProvider = ({ children }) => {
@@ -130,7 +130,7 @@ const GetDataProvider = ({ children }) => {
 }
 ```
 Thats how code looks with these optimizations:
-```js
+```jsx
 const Diagram = React.memo(withContext(IdContext,
 	({ id }, props) => ({ ...props, id }),
 	withContext(GetDataContext,
@@ -192,7 +192,7 @@ const FuncTest3: React.FC<{ yo: string }> = withContext(TestContext,
 ## useMergedRefs
 Returns a function that you can pass to `ref` to assign two refs for one element.
 
-```js
+```jsx
 import { useMergedRefs } from '@rqm/react-tools'
 import React, { forwardRef, useRef } from 'react'
 
