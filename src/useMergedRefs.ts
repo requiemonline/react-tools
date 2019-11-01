@@ -1,6 +1,6 @@
 import { useCallback, Ref, MutableRefObject } from 'react'
 
-const useMergedRefs = <T>(ref1: Ref<T>, ref2: Ref<T>) =>
+const useMergedRefs = <T>(ref1?: Ref<T>, ref2?: Ref<T>) =>
 	useCallback(
 		(instance: T) =>
 			[ref1, ref2].forEach(ref => {
